@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 HAPPY BIRTHDAY MAY 🎉</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating confetti animation */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            z-index: 1;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 8vw, 4rem);
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+            animation: bounce 2s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .subtitle {
+            color: white;
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            margin-top: 10px;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            text-align: center;
+        }
+
+        /* GIF Section */
+        .gif-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .tenor-gif {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Slideshow Styles */
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .slide {
+            display: none;
+            position: relative;
+            animation: fadeSlide 1s ease;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slide-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #f093fb 0%, #667eea 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .slide-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.8);
+            border: none;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .slide-nav:hover {
+            background: rgba(255,255,255,1);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev { left: 10px; border-radius: 0 10px 10px 0; }
+        .next { right: 10px; border-radius: 10px 0 0 10px; }
+
+        .slide-dots {
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        .dot {
+            height: 12px;
+            width: 12px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active, .dot:hover {
+            background-color: #667eea;
+            transform: scale(1.2);
+        }
+
+        /* Wheel Spinner Styles */
+        .wheel-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .wheel-wrapper {
+            position: relative;
+            width: min(400px, 90vw);
+            height: min(400px, 90vw);
+            margin: 20px 0;
+        }
+
+        #wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 8px solid white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.3);
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+        }
+
+        .wheel-pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 40px solid #ff6b6b;
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+            z-index: 10;
+        }
+
+        #spinBtn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        #spinBtn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        #spinBtn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: #667eea;
+            font-weight: bold;
+            min-height: 40px;
+            text-align: center;
+        }
+
+        .result-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .result-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 20px;
+                margin: 20px 0;
+            }
+
+            .slide-nav {
+                padding: 10px 15px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎂 HAPPY BIRTHDAY BABYYYY 🎉</h1>
+            <p class="subtitle">your special day, is my special day, because it celebrates when someone as beautiful as you was born <3</p>
+        </header>
+
+        <!-- GIF Section -->
+        <section class="section">
+            <h2>💕 HAPPY BIRTHDAY MY LOVERGIRL 💕</h2>
+            <div class="gif-container">
+                <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+                <img src="https://tenor.com/view/celebration-celebration-dance-love-you-i-love-you-so-much-cinnamoroll-sanrio-character-gif-18294816700466978888" alt="Special GIF" class="tenor-gif">
+            </div>
+        </section>
+
+        <!-- Slideshow Section -->
+        <section class="section">
+            <h2>📸 Memory Lane</h2>
+            <div class="slideshow-container">
+                <button class="slide-nav prev" onclick="changeSlide(-1)">❮</button>
+                
+                <div class="slide active">
+                    <img src="images/photo1.jpg" alt="Birthday Memory 1">
+                </div>
+                
+                <div class="slide">
+                    <img src="images/photo2.jpg" alt="Birthday Memory 2">
+                </div>
+                
+                <div class="slide">
+                    <img src="images/photo3.jpg" alt="Birthday Memory 3">
+                </div>
+
+                <div class="slide">
+                    <img src="images/photo4.jpg" alt="Birthday Memory 4">
+                </div>
+                
+                <button class="slide-nav next" onclick="changeSlide(1)">❯</button>
+            </div>
+            <div class="slide-dots">
+                <span class="dot active" onclick="currentSlide(0)"></span>
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+            </div>
+        </section>
+
+        <!-- Wheel Spinner Section -->
+        <section class="section">
+            <h2>🎡 MAY BIRTHDAY WHEEL</h2>
+            <div class="wheel-container">
+                <div class="wheel-wrapper">
+                    <div class="wheel-pointer"></div>
+                    <canvas id="wheel" width="400" height="400"></canvas>
+                </div>
+                <button id="spinBtn" onclick="spinWheel()">SPIN THE WHEEL!</button>
+                <div id="result"></div>
+            </div>
+        </section>
+
+        <footer>
+            <p>from Anakin, to Mary, the woman of my dreams <3 happy birthday baby</p>
+        </footer>
+    </div>
+
+    <script>
+        // Create floating confetti
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            confetti.style.animationDelay = Math.random() * 5 + 's';
+            confetti.style.backgroundColor = ['#667eea', '#764ba2', '#f093fb', '#ff6b6b', '#ffd93d'][Math.floor(Math.random() * 5)];
+            confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+            document.body.appendChild(confetti);
+        }
+
+        // Slideshow functionality
+        let currentSlideIndex = 0;
+
+        function changeSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            
+            slides[currentSlideIndex].classList.remove('active');
+            dots[currentSlideIndex].classList.remove('active');
+            
+            currentSlideIndex += n;
+            if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
+            if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
+            
+            slides[currentSlideIndex].classList.add('active');
+            dots[currentSlideIndex].classList.add('active');
+        }
+
+        function currentSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            
+            slides[currentSlideIndex].classList.remove('active');
+            dots[currentSlideIndex].classList.remove('active');
+            
+            currentSlideIndex = n;
+            
+            slides[currentSlideIndex].classList.add('active');
+            dots[currentSlideIndex].classList.add('active');
+        }
+
+        // Auto-advance slideshow
+        setInterval(() => changeSlide(1), 5000);
+
+        // Wheel Spinner functionality
+        const canvas = document.getElementById('wheel');
+        const ctx = canvas.getContext('2d');
+        const spinBtn = document.getElementById('spinBtn');
+        const result = document.getElementById('result');
+        
+        const wheelItems = [
+            { name: 'Bday Tiktok', url: 'https://example.com/tiktok' },
+            { name: 'Flowers', url: 'https://www.katysdaisies.com/share/TWFyeXxBbmFraW58bm8gbWF0dGVyIHdoYXQgaGFwcGVucywKaSdsbCBiZSByaWdodCBoZXJlLAp0aGUgYm91cXVldCBmdWxsIG9mIGZsb3dlcnMsCmlzIG15IGxvdmU7IG5ldmVyIHNoZWVyZWR8T25seSBMb3ZlOiBIZWFydCAmIFNvdWx8NTM=/' },
+            { name: 'Movie Night', url: 'https://example.com/movie' },
+            { name: 'Paragraph', url: 'https://example.com/paragraph' },
+            { name: 'Anakintent', url: 'https://example.com/anakintent' },
+            { name: 'Secret Drawing', url: 'https://example.com/drawing' }
+        ];
+        
+        let currentRotation = 0;
+        let isSpinning = false;
+
+        const colors = ['#667eea', '#764ba2', '#f093fb', '#ff6b6b', '#ffd93d', '#6bcf7f'];
+
+        function drawWheel() {
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = canvas.width / 2 - 10;
+            const arc = (2 * Math.PI) / wheelItems.length;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            wheelItems.forEach((item, i) => {
+                const angle = i * arc;
+                
+                ctx.beginPath();
+                ctx.fillStyle = colors[i % colors.length];
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, angle, angle + arc);
+                ctx.lineTo(centerX, centerY);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.rotate(angle + arc / 2);
+                ctx.textAlign = 'center';
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 14px Arial';
+                ctx.fillText(item.name, radius / 2, 10);
+                ctx.restore();
+            });
+        }
+
+        function spinWheel() {
+            if (isSpinning) return;
+            
+            isSpinning = true;
+            spinBtn.disabled = true;
+            result.innerHTML = '';
+
+            const spins = 5 + Math.random() * 5;
+            const degrees = spins * 360 + Math.random() * 360;
+            currentRotation += degrees;
+
+            canvas.style.transform = `rotate(${currentRotation}deg)`;
+
+            setTimeout(() => {
+                const normalizedRotation = currentRotation % 360;
+                const arc = 360 / wheelItems.length;
+                const adjustedRotation = (360 - normalizedRotation + 90) % 360;
+                const winningIndex = Math.floor(adjustedRotation / arc) % wheelItems.length;
+                const winner = wheelItems[winningIndex];
+                
+                result.innerHTML = `
+                    <div>🎉 You won: ${winner.name}! 🎉</div>
+                    <a href="${winner.url}" class="result-link" target="_blank">Claim Your Prize!</a>
+                `;
+                isSpinning = false;
+                spinBtn.disabled = false;
+            }, 4000);
+        }
+
+        // Initial draw
+        drawWheel();
+    </script>
+</body>
+</html>
