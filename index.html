@@ -338,19 +338,19 @@
                 <button class="slide-nav prev" onclick="changeSlide(-1)">❮</button>
                 
                 <div class="slide active">
-                    <img src="images/photo1.jpg" alt="Birthday Memory 1">
+                    <img src="images/maybday1.png" alt="Birthday Memory 1">
                 </div>
                 
                 <div class="slide">
-                    <img src="images/photo2.jpg" alt="Birthday Memory 2">
+                    <img src="images/maybday2.png" alt="Birthday Memory 2">
                 </div>
                 
                 <div class="slide">
-                    <img src="images/photo3.jpg" alt="Birthday Memory 3">
+                    <img src="images/maybday3.png" alt="Birthday Memory 3">
                 </div>
 
                 <div class="slide">
-                    <img src="images/photo4.jpg" alt="Birthday Memory 4">
+                    <img src="images/maybday4.png" alt="Birthday Memory 4">
                 </div>
                 
                 <button class="slide-nav next" onclick="changeSlide(1)">❯</button>
@@ -437,9 +437,9 @@
         const wheelItems = [
             { name: 'Bday Tiktok', url: 'https://example.com/tiktok' },
             { name: 'Flowers', url: 'https://www.katysdaisies.com/share/TWFyeXxBbmFraW58bm8gbWF0dGVyIHdoYXQgaGFwcGVucywKaSdsbCBiZSByaWdodCBoZXJlLAp0aGUgYm91cXVldCBmdWxsIG9mIGZsb3dlcnMsCmlzIG15IGxvdmU7IG5ldmVyIHNoZWVyZWR8T25seSBMb3ZlOiBIZWFydCAmIFNvdWx8NTM=/' },
-            { name: 'Movie Night', url: 'https://example.com/movie' },
-            { name: 'Paragraph', url: 'https://example.com/paragraph' },
-            { name: 'Anakintent', url: 'https://example.com/anakintent' },
+            { name: 'Movie Plans', url: 'https://example.com/movie' },
+            { name: 'Paragraph', url: 'https://docs.google.com/presentation/d/185ZWJaXxQUGpvnGMvCd_DPCBb579owWx45jIjFLIY8k/edit?usp=sharing' },
+            { name: 'Silly Story', url: 'https://docs.google.com/document/d/17WCmQVq8iHZWuAAgTOUckz-FDTsV949cur6RPTDSvy0/edit?usp=sharing' },
             { name: 'Secret Drawing', url: 'https://example.com/drawing' }
         ];
         
@@ -494,7 +494,7 @@
             setTimeout(() => {
                 const normalizedRotation = currentRotation % 360;
                 const arc = 360 / wheelItems.length;
-                const adjustedRotation = (360 - normalizedRotation + 90) % 360;
+                const adjustedRotation = (360 - normalizedRotation) % 360;
                 const winningIndex = Math.floor(adjustedRotation / arc) % wheelItems.length;
                 const winner = wheelItems[winningIndex];
                 
