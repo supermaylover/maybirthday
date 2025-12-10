@@ -491,13 +491,13 @@
             canvas.style.transform = `rotate(${currentRotation}deg)`;
 
             setTimeout(() => {
-                const normalizedRotation = (currentRotation % 360 + 360) % 360;
+                const normalizedRotation = currentRotation % 360;
                 const arc = 360 / wheelItems.length;
-            
-            
-                const winningIndex = Math.floor(normalizedRotation / arc);
+                const pointerAngle = (270 - normalizedRotation) % 360;
+                const adjustedAngle = pointerAngle < 0 ? pointerAngle + 360 : pointerAngle;
+                const winningIndex = Math.floor(adjustedAngle / arc) % wheelItems.length;
                 const winner = wheelItems[winningIndex];
-            
+                
                 result.innerHTML = `
                     <div>🎉 You won: ${winner.name}! 🎉</div>
                     <a href="${winner.url}" class="result-link" target="_blank">Claim Your Prize!</a>
