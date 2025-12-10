@@ -147,8 +147,8 @@
         .slide img {
             width: 100%;
             height: auto;
-            max-height: 500px;
-            object-fit: cover;
+            max-height: 700px;
+            object-fit: contain;
             display: block;
         }
 
@@ -494,8 +494,9 @@
             setTimeout(() => {
                 const normalizedRotation = currentRotation % 360;
                 const arc = 360 / wheelItems.length;
-                const adjustedRotation = (360 - normalizedRotation) % 360;
-                const winningIndex = Math.floor(adjustedRotation / arc) % wheelItems.length;
+                const pointerAngle = (90 - normalizedRotation) % 360;
+                const adjustedAngle = pointerAngle < 0 ? pointerAngle + 360 : pointerAngle;
+                const winningIndex = Math.floor(adjustedAngle / arc) % wheelItems.length;
                 const winner = wheelItems[winningIndex];
                 
                 result.innerHTML = `
