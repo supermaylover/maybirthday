@@ -359,6 +359,7 @@
                 <span class="dot" onclick="currentSlide(1)"></span>
                 <span class="dot" onclick="currentSlide(2)"></span>
                 <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
             </div>
         </section>
 
@@ -493,9 +494,10 @@
             setTimeout(() => {
                 const normalizedRotation = currentRotation % 360;
                 const arc = 360 / wheelItems.length;
-                const pointerAngle = (90 - normalizedRotation) % 360;
-                const adjustedAngle = pointerAngle < 0 ? pointerAngle + 360 : pointerAngle;
-                const winningIndex = Math.floor(adjustedAngle / arc) % wheelItems.length;
+                const pointerOffset = 270 + (arc / 2);
+                const adjustedAngle = (pointerOffset - normalizedRotation) % 360;
+                const positiveAngle = adjustedAngle < 0 ? adjustedAngle + 360 : adjustedAngle;
+                const winningIndex = Math.floor(positiveAngle / arc) % wheelItems.length;
                 const winner = wheelItems[winningIndex];
                 
                 result.innerHTML = `
