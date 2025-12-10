@@ -326,7 +326,7 @@
         <section class="section">
             <h2>💕 HAPPY BIRTHDAY MY LOVERGIRL 💕</h2>
             <div class="gif-container">
-                <img src="https://media1.tenor.com/m/LdrTlDA-y_oAAAAC/celebration-celebration-dance.gif" alt="Special GIF" class="tenor-gif">
+                <img src="celebration-celebration-dance.gif" class="tenor-gif" alt="Special GIF">
             </div>
         </section>
 
@@ -434,12 +434,12 @@
         const result = document.getElementById('result');
         
         const wheelItems = [
-            { name: 'Bday Tiktok', url: 'https://example.com/tiktok' },
+            { name: 'Bday Tiktok', url: 'https://tiktok.com' },
             { name: 'Flowers', url: 'https://www.katysdaisies.com/share/TWFyeXxBbmFraW58bm8gbWF0dGVyIHdoYXQgaGFwcGVucywKaSdsbCBiZSByaWdodCBoZXJlLAp0aGUgYm91cXVldCBmdWxsIG9mIGZsb3dlcnMsCmlzIG15IGxvdmU7IG5ldmVyIHNoZWVyZWR8T25seSBMb3ZlOiBIZWFydCAmIFNvdWx8NTM=/' },
             { name: 'Movie Plans', url: 'https://example.com/movie' },
             { name: 'Paragraph', url: 'https://docs.google.com/presentation/d/185ZWJaXxQUGpvnGMvCd_DPCBb579owWx45jIjFLIY8k/edit?usp=sharing' },
             { name: 'Silly Story', url: 'https://docs.google.com/document/d/17WCmQVq8iHZWuAAgTOUckz-FDTsV949cur6RPTDSvy0/edit?usp=sharing' },
-            { name: 'Secret Drawing', url: 'https://example.com/drawing' }
+            { name: 'Secret Drawing', url: 'https://docs.google.com/document/d/1gMTnqCQqLCoTtqTXTo__Bg7uakSzMBTs8WwV51h9xks/edit?usp=sharing' }
         ];
         
         let currentRotation = 0;
@@ -491,13 +491,15 @@
             canvas.style.transform = `rotate(${currentRotation}deg)`;
 
             setTimeout(() => {
-                const normalizedRotation = currentRotation % 360;
+                const normalizedRotation = (currentRotation % 360 + 360) % 360;
                 const arc = 360 / wheelItems.length;
-                const pointerAngle = (normalizedRotation) % 360;
-                const adjustedAngle = pointerAngle < 0 ? pointerAngle + 360 : pointerAngle;
-                const winningIndex = Math.floor(adjustedAngle / arc) % wheelItems.length;
+            
+                // shift to match pointer at top
+                const correctedAngle = (normalizedRotation + 90) % 360;
+            
+                const winningIndex = Math.floor(correctedAngle / arc);
                 const winner = wheelItems[winningIndex];
-                
+            
                 result.innerHTML = `
                     <div>🎉 You won: ${winner.name}! 🎉</div>
                     <a href="${winner.url}" class="result-link" target="_blank">Claim Your Prize!</a>
