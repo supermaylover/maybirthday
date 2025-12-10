@@ -493,7 +493,7 @@
             setTimeout(() => {
                 const normalizedRotation = currentRotation % 360;
                 const arc = 360 / wheelItems.length;
-                const pointerAngle = (540 - normalizedRotation) % 360;
+                const pointerAngle = (90 - normalizedRotation) % 360;
                 const adjustedAngle = pointerAngle < 0 ? pointerAngle + 360 : pointerAngle;
                 const winningIndex = Math.floor(adjustedAngle / arc) % wheelItems.length;
                 const winner = wheelItems[winningIndex];
