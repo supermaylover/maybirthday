@@ -495,7 +495,7 @@
                 const arc = 360 / wheelItems.length;
             
                 // shift to match pointer at top
-                const correctedAngle = (normalizedRotation + 90) % 360;
+                const correctedAngle = (normalizedRotation) % 360;
             
                 const winningIndex = Math.floor(correctedAngle / arc);
                 const winner = wheelItems[winningIndex];
